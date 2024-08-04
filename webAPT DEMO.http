@@ -1,0 +1,6 @@
+@webAPT_DEMO_HostAddress = http://localhost:5138
+
+GET {{webAPT_DEMO_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
