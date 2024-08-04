@@ -12,18 +12,18 @@ namespace webAPT_DEMO.Services.CharacterServices
             new Character { Id = 1, Name = "Sam"}
         };
 
-        public List<Character> AddCharacter(Character newCharacter)
+        public async Task<List<Character>> AddCharacter(Character newCharacter)
         {
             characters.Add(newCharacter);
             return characters;
         }
 
-        public List<Character> GetAllCharacters()
+        public async Task<List<Character>> GetAllCharacters()
         {
              return characters;
         }
 
-        public Character GetCharacterByID(int id)
+        public async Task<Character> GetCharacterByID(int id)
         {
             var character = characters.FirstOrDefault(c => c.Id == id);
             if(character is not null)

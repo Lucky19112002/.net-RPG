@@ -18,18 +18,18 @@ namespace webAPT_DEMO.Controllers
         }
 
         [HttpGet("GetAll")]
-        public ActionResult<List<Character>> Get(){
-            return Ok(_characterServices.GetAllCharacters());
+        public async Task<ActionResult<List<Character>>> Get(){
+            return Ok(await _characterServices.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Character> GetSingle(int id ){
-            return Ok(_characterServices.GetCharacterByID(id));
+        public async Task<ActionResult<Character>> GetSingle(int id ){
+            return Ok(await _characterServices.GetCharacterByID(id));
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> AddCharacter(Character newCharacter){
-            return Ok(_characterServices.AddCharacter(newCharacter));
+        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter){
+            return Ok(await _characterServices.AddCharacter(newCharacter));
         }
     }
 }
