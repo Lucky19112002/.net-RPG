@@ -1,4 +1,3 @@
-global using webAPT_DEMO.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +10,26 @@ namespace webAPT_DEMO.Controllers
     [Route("api/Character")]
     public class CharacterController : ControllerBase
     {
-        private static List<Character> characters  = new List<Character> {
-            new Character(),
-            new Character { Id = 1, Name = "Sam"}
-        };
+        private readonly ICharacterServices _characterServices;
+
+        public CharacterController(ICharacterServices characterServices)
+        {
+            this._characterServices = characterServices;
+        }
 
         [HttpGet("GetAll")]
         public ActionResult<List<Character>> Get(){
-            return Ok(characters);
+            return Ok(_characterServices.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Character> GetSingle(int id ){
-            return Ok(characters.FirstOrDefault(c => c.Id == id));
+            return Ok(_characterServices.GetCharacterByID(id));
         }
 
         [HttpPost]
         public ActionResult<List<Character>> AddCharacter(Character newCharacter){
-            characters.Add(newCharacter);
-            return Ok(characters);
+            return Ok(_characterServices.AddCharacter(newCharacter));
         }
     }
 }
