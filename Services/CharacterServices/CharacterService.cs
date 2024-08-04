@@ -11,7 +11,7 @@ namespace webAPT_DEMO.Services.CharacterServices
             new Character(),
             new Character { Id = 1, Name = "Sam"}
         };
-        
+
         public List<Character> AddCharacter(Character newCharacter)
         {
             characters.Add(newCharacter);
@@ -25,7 +25,11 @@ namespace webAPT_DEMO.Services.CharacterServices
 
         public Character GetCharacterByID(int id)
         {
-            return characters.FirstOrDefault(c => c.Id == id);
+            var character = characters.FirstOrDefault(c => c.Id == id);
+            if(character is not null)
+                return character;
+            
+            throw new Exception("Charater Not Found");
         }
     }
 }
