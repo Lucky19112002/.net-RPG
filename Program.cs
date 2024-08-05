@@ -2,6 +2,8 @@ global using webAPT_DEMO.Models;
 global using webAPT_DEMO.Services.CharacterServices;
 global using webAPT_DEMO.Dtos.Character;
 global using AutoMapper;
+global using Microsoft.EntityFrameworkCore;
+
 
 using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
