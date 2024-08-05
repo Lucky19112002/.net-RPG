@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using webAPT_DEMO.Data;
 
 namespace webAPT_DEMO.Services.CharacterServices
 {
@@ -12,9 +13,11 @@ namespace webAPT_DEMO.Services.CharacterServices
             new Character { Id = 1, Name = "Sam"}
         };
         private readonly IMapper _mapper;
+        private readonly DataContex _contex;
 
-        public CharacterService(IMapper mapper)
+        public CharacterService(IMapper mapper, DataContex contex)
         {
+            _contex = contex;
             _mapper = mapper;
         }
 
@@ -51,7 +54,8 @@ namespace webAPT_DEMO.Services.CharacterServices
         public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
-            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+            var dbCharacter = await _contex.Characters.ToListAsync();
+            serviceResponse.Data = dbCharacter.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
              return serviceResponse;
 
         }
