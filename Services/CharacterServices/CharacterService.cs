@@ -44,5 +44,31 @@ namespace webAPT_DEMO.Services.CharacterServices
             serviceResponse.Data = _mapper.Map<GetCharacterDto>(character);
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updateCharacter)
+        {
+            var serviceResponse = new ServiceResponse<GetCharacterDto>();
+            try {
+                
+            var character = characters.FirstOrDefault(c => c.Id == updateCharacter.Id);
+            if(character is null)
+                throw new Exception($"Character with ID '{updateCharacter.Id}' not found .");
+
+            character.Name = updateCharacter.Name;
+            character.HitPoints = updateCharacter.HitPoints;
+            character.Strength = updateCharacter.Strength;
+            character.Defence = updateCharacter.Defence;
+            character.Intelligence = updateCharacter.Intelligence;
+            character.Class = updateCharacter.Class;
+
+            serviceResponse.Data = _mapper.Map<GetCharacterDto>(character);
+
+            }
+            catch(Exception ex) {
+                serviceResponse.Sucess = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
     }
 }

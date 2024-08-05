@@ -31,5 +31,12 @@ namespace webAPT_DEMO.Controllers
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter){
             return Ok(await _characterServices.AddCharacter(newCharacter));
         }
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> UpdateCharacter(UpdateCharacterDto updatedCharacter){
+            var response = await _characterServices.UpdateCharacter(updatedCharacter);
+            if (response.Data is null)
+                return NotFound(response);
+            return Ok(response);
+        }
     }
 }
