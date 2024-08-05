@@ -1,5 +1,6 @@
 global using webAPT_DEMO.Models;
 global using webAPT_DEMO.Services.CharacterServices;
+global using webAPT_DEMO.Dtos.Character;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
