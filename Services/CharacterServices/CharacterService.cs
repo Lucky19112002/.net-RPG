@@ -28,6 +28,26 @@ namespace webAPT_DEMO.Services.CharacterServices
             return  serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<GetCharacterDto>>> DeleteCharacter(int id)
+        {
+            var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
+            try {
+                
+            var character = characters.FirstOrDefault(c => c.Id == id);
+            if(character is null)
+                throw new Exception($"Character with ID '{id}' not found .");
+
+            characters.Remove(character);
+            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+
+            }
+            catch(Exception ex) {
+                serviceResponse.Sucess = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
